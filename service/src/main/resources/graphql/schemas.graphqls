@@ -1,0 +1,20 @@
+type Query {
+    metrics(applicationId: ID!, minutes: Int!): [Metrics]
+    alerts(applicationId: ID!, limit: Int, offset: Int): [Alert]
+}
+
+type Metrics {
+    cpuUsage: Float
+    memoryUsage: Float
+    responseTime: Float
+    threadCount: Int
+    createdAt: String
+}
+
+type Alert {
+    alertType: String
+    severity: String
+    message: String
+    createdAt: String
+    resolved: Boolean
+}

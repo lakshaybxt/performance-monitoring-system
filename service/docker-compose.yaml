@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-monitoring
+    restart: always
+    environment:
+      POSTGRES_DB: serviceDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changemeinprod!
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    driver: local
