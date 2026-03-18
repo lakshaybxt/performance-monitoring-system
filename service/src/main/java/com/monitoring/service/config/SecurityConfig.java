@@ -18,7 +18,7 @@ public class SecurityConfig {
     return http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/actuator/**").permitAll()
+            .requestMatchers("/actuator/**", "/graphql", "/graphiql/**", "/subscriptions").permitAll()
             .anyRequest().authenticated()
         ).sessionManagement(session ->
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

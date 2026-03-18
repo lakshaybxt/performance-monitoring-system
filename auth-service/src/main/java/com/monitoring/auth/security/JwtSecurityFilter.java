@@ -28,58 +28,58 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class JwtSecurityFilter extends OncePerRequestFilter {
 
-    public final UserDetailsService userDetailsService;
-    private final JwtService jwtService;
-    private final HandlerExceptionResolver exceptionResolver;
+  public final UserDetailsService userDetailsService;
+  private final JwtService jwtService;
+  private final HandlerExceptionResolver exceptionResolver;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            String token = extractToken(request);
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    try {
+      String token = extractToken(request);
 
-            if(token == null) {
-                filterChain.doFilter(request, response);
-                return;
-            }
+      if(token == null) {
+        filterChain.doFilter(request, response);
+        return;
+      }
 
-            Claims claims = jwtService.extractAllClaims(token);
+      Claims claims = jwtService.extractAllClaims(token);
 
-            String email = claims.getSubject();
-            UUID userId = claims.get("userId", UUID.class);
-            String username = claims.get("username", String.class);
-            boolean enabled = claims.get("enabled", Boolean.class);
+      String email = claims.getSubject();
+      UUID userId = claims.get("userId", UUID.class);
+      String username = claims.get("username", String.class);
+      boolean enabled = claims.get("enabled", Boolean.class);
 
-            if(email == null || !jwtService.validateToken(token)) {
-                filterChain.doFilter(request, response);
-                return;
-            }
+      if(email == null || !jwtService.validateToken(token)) {
+        filterChain.doFilter(request, response);
+        return;
+      }
 
-            User user = User.builder()
-                .id(userId)
-                .username(username)
-                .email(email)
-                .enabled(enabled)
-                .build();
+      User user = User.builder()
+          .id(userId)
+          .username(username)
+          .email(email)
+          .enabled(enabled)
+          .build();
 
-            AuthUserDetails userDetails = new AuthUserDetails(user);
-            request.setAttribute("userId", userId);
+      AuthUserDetails userDetails = new AuthUserDetails(user);
+      request.setAttribute("userId", userId);
 
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities()
-            );
+      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+          userDetails, null, userDetails.getAuthorities()
+      );
 
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        } catch (Exception ex) {
-            exceptionResolver.resolveException(request, response, null, ex);
-        }
+      auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+      SecurityContextHolder.getContext().setAuthentication(auth);
+    } catch (Exception ex) {
+      exceptionResolver.resolveException(request, response, null, ex);
     }
+  }
 
-    private String extractToken(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
+  private String extractToken(HttpServletRequest request) {
+    String authHeader = request.getHeader("Authorization");
 
-        return (authHeader != null && authHeader.startsWith("Bearer "))
-                ? authHeader.substring(7)
-                : null;
-    }
+    return (authHeader != null && authHeader.startsWith("Bearer "))
+        ? authHeader.substring(7)
+        : null;
+  }
 }

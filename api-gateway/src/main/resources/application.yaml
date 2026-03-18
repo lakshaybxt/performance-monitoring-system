@@ -7,26 +7,99 @@ spring:
 
   cloud:
     gateway:
-      routes:
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
-          predicates:
-            - Path=/auth/**
+      server:
+        webflux:
+          routes:
+            - id: auth-service
+              uri: lb://AUTH-SERVICE
+              predicates:
+                - Path=/auth/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: authCircuitBreaker
+                    fallbackUri: forward:/authServiceFallback
 
-        - id: monitoring-service
-          uri: lb://MONITORING-SERVICE
-          predicates:
-            - Path=/applications/**
+            - id: monitoring-service
+              uri: lb://MONITORING-SERVICE
+              predicates:
+                - Path=/applications/**,/alerts/**,/metrics/**,/graphql/**,/graphiql/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: monitoringCircuitBreaker
+                    fallbackUri: forward:/monitoringServiceFallback
 
-        - id: demo-service
-          uri: lb://DEMO-SERVICE
-          predicates:
-              - Path=/demo/**
+            - id: demo-service
+              uri: lb://DEMO-SERVICE
+              predicates:
+                  - Path=/demo/**
 
-        - id: notification-service
-          uri: lb://notification-service
-          predicates:
-            - Path=/notification/**
+            - id: notification-service
+              uri: lb://NOTIFICATION-SERVICE
+              predicates:
+                - Path=/notification/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: notificationCircuitBreaker
+                    fallbackUri: forward:/notificationServiceFallback
+
+resilience4j:
+  timelimiter:
+    instances:
+      authCircuitBreaker:
+        timeout-duration: 5s
+      monitoringCircuitBreaker:
+        timeout-duration: 5s
+      notificationCircuitBreaker:
+        timeout-duration: 5s
+  circuitbreaker:
+    instances:
+      authCircuitBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 6s
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+
+      monitoringCircuitBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 6s
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+
+      notificationCircuitBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 6s
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,circuitbreakers
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
 
 logging:
   level:
@@ -39,6 +112,15 @@ logging:
             RoutePredicateHandlerMapping: TRACE
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://lakshay:lakshay@localhost:8761/eureka/
+
+security:
+  jwt:
+    secret: 6Rk8dVjG0tM1FZT7nLqXztdVd7y9hTqY3FjXZ3qH1Nc=
+    expiration: 3600000
