@@ -16,8 +16,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [ showPassword, setShowPassword ] = useState(false);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("")
-  const [login, { isLoading, isSuccess, isError, data }] = useLoginMutation();
+  const [password, setPassword] = useState("");
+  const [login, { isLoading, isSuccess, data }] = useLoginMutation();
 
   const handleLogin = async () => {
     try {
@@ -40,7 +40,7 @@ const Login = () => {
       toast.success("Logged in successfully!");
       navigate("/home");
     }
-  }, [isSuccess, data])
+  }, [isSuccess, data, navigate, dispatch])
 
   
   return (

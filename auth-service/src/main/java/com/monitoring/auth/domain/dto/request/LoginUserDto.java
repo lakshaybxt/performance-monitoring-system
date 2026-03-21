@@ -14,6 +14,6 @@ public class LoginUserDto {
   @NotBlank(message = "Email is required")
   private String email;
 
-  @Size(min = 8, max = 20, message = "Password must be between {max} and {min} characters")
+  @Size(min = 7, max = 20, message = "Password must be between {max} and {min} characters")
   private String password;
 }

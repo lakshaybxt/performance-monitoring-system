@@ -195,13 +195,13 @@ public class MetricsCollectorService {
    * @return A list of Metrics objects that match the criteria
    * @throws RuntimeException if the application is not found or if the user is unauthorized
    */
-  public List<Metrics> getRecentMetrics(UUID applicationId, LocalDateTime time, String userId) {
+  public List<Metrics> getRecentMetrics(UUID applicationId, LocalDateTime time, UUID userId) {
 
     Application app = applicationRepository
         .findById(applicationId)
         .orElseThrow(() -> new RuntimeException("Application not found"));
 
-    if (!app.getUserId().equals(UUID.fromString(userId))) {
+    if (!app.getUserId().equals(userId)) {
       throw new RuntimeException("Unauthorized access");
     }
 

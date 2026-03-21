@@ -1,0 +1,34 @@
+.home-feat-card {
+  background: #262626;
+  border: 1px solid #2e2e2e;
+  border-radius: 14px;
+  padding: 1.25rem;
+  transition: border-color 0.15s;
+}
+
+.home-feat-card:hover {
+  border-color: #3e3e3e;
+}
+
+.home-feat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.home-feat-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ececec;
+  margin-bottom: 6px;
+}
+
+.home-feat-desc {
+  font-size: 12px;
+  color: #7a7a7a;
+  line-height: 1.6;
+}

@@ -1,0 +1,115 @@
+/* ── Illustration Card ── */
+.illus-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-height: 320px;
+}
+
+.screen {
+  width: 100%;
+  max-width: 280px;
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.screen-bar {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.screen-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.screen-dot.red   { background: #e5534b; }
+.screen-dot.amber { background: #d4a017; }
+.screen-dot.green { background: #57ab5a; }
+
+.screen-label {
+  font-size: 11px;
+  color: #5a5a5a;
+  margin-bottom: 6px;
+}
+
+.mini-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 52px;
+  margin: 8px 0;
+}
+
+.bar {
+  width: 16px;
+  border-radius: 3px 3px 0 0;
+  background: #2e2e2e;
+}
+
+.bar.hi {
+  background: #3d63dd;
+}
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.metric-mini {
+  background: #212121;
+  border-radius: 8px;
+  padding: 7px 8px;
+  border: 1px solid #2e2e2e;
+  text-align: center;
+}
+
+.metric-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ececec;
+}
+
+.metric-lbl {
+  font-size: 10px;
+  color: #5a5a5a;
+  margin-top: 1px;
+}
+
+/* ── Badges ── */
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-blue   { background: #1e2a42; color: #7da3e0; border: 1px solid #2a3a58; }
+.badge-purple { background: #25203a; color: #9d8fd4; border: 1px solid #332d52; }
+.badge-green  { background: #1a2a1e; color: #57ab5a; border: 1px solid #253528; }
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #57ab5a;
+  display: inline-block;
+}

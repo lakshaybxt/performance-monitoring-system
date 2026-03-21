@@ -23,7 +23,7 @@ spring:
             - id: monitoring-service
               uri: lb://MONITORING-SERVICE
               predicates:
-                - Path=/applications/**,/alerts/**,/metrics/**,/graphql/**,/graphiql/**
+                - Path=/applications/**,/alerts/**,/metrics/**,/graphql/**,/graphiql/**,/graphiql?path=/graphql
               filters:
                 - name: CircuitBreaker
                   args:

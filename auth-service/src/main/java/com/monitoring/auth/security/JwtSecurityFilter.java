@@ -45,7 +45,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
       Claims claims = jwtService.extractAllClaims(token);
 
       String email = claims.getSubject();
-      UUID userId = claims.get("userId", UUID.class);
+      UUID userId = UUID.fromString(claims.get("userId", String.class));
       String username = claims.get("username", String.class);
       boolean enabled = claims.get("enabled", Boolean.class);
 

@@ -1,0 +1,84 @@
+/* ── Hero ── */
+.home-hero {
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  border-bottom: 1px solid #2e2e2e;
+}
+ 
+.home-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 4px 12px;
+  background: #1e2a42;
+  color: #7da3e0;
+  border: 1px solid #2a3a58;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+ 
+.home-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #57ab5a;
+}
+ 
+.home-hero-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ececec;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+ 
+.home-hero-title span {
+  color: #3d63dd;
+}
+ 
+.home-hero-sub {
+  font-size: 15px;
+  color: #7a7a7a;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+ 
+.home-hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+ 
+.home-btn-lg {
+  font-size: 14px;
+  padding: 11px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+ 
+.home-btn-lg-primary {
+  background: #3d63dd;
+  color: #fff;
+  border: 1px solid #3d63dd;
+}
+ 
+.home-btn-lg-primary:hover {
+  background: #2d53cd;
+}
+ 
+.home-btn-lg-ghost {
+  background: transparent;
+  color: #c4c4c4;
+  border: 1px solid #3e3e3e;
+}
+ 
+.home-btn-lg-ghost:hover {
+  background: #2e2e2e;
+}
+ 

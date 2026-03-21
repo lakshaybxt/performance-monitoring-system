@@ -1,4 +1,4 @@
-package com.monitoring.api_gateway.security;
+package com.monitoring.api_gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

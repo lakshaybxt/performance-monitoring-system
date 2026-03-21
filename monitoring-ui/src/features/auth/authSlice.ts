@@ -48,7 +48,6 @@ const getStoredAuthSession = (): AuthState => {
     if (!token) return initialState;
 
     const { userInfo, expiration } = decodeToken(token);
-    console.log("expiration", expiration, "current", Date.now());
 
     if (Date.now() > expiration) {
       localStorage.removeItem("token");

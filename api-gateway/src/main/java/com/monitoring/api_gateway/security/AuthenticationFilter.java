@@ -26,7 +26,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
       "/auth/login",
       "/auth/register",
       "/auth/verify",
-      "/graphiql"
+      "/graphiql",
+      "/graphiql?path=/graphql"
   );
 
   @Override

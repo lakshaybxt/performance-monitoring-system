@@ -23,9 +23,6 @@ public class ApplicationRegistrationRequest {
   @NotBlank
   private String baseUrl;
 
-  @NotNull
-  private UUID userId;
-
   @NotBlank
   private String email;
 }

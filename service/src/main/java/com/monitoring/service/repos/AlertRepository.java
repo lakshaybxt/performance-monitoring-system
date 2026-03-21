@@ -26,4 +26,5 @@ public interface AlertRepository extends JpaRepository<Alert, UUID> {
   void deleteResolvedAlerts(LocalDateTime time);
 
   Page<Alert> findByApplicationId(UUID applicationId, Pageable pageable);
+  void deleteByApplicationId(UUID applicationId);
 }

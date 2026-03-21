@@ -3,6 +3,7 @@ package com.monitoring.service.controller;
 import com.monitoring.service.dto.ApplicationRegistrationRequest;
 import com.monitoring.service.dto.ApplicationRegistrationResponse;
 import com.monitoring.service.service.ApplicationService;
+import com.monitoring.service.utils.SecurityUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,18 @@ import java.util.UUID;
 public class ApplicationController {
 
   private final ApplicationService applicationService;
+  private final SecurityUtils securityUtils;
 
   @PostMapping
   public ResponseEntity<Void> registerApplication(@RequestBody @Valid ApplicationRegistrationRequest request) {
-    applicationService.registerApplication(request);
+    UUID userId = securityUtils.getAuthenticatedUserId();
+    applicationService.registerApplication(request, userId);
     return ResponseEntity.ok().build();
   }
 
-  @GetMapping(path = "/{userId}")
-  public ResponseEntity<List<ApplicationRegistrationResponse>> getRegisteredApplications(@PathVariable UUID userId) {
+  @GetMapping
+  public ResponseEntity<List<ApplicationRegistrationResponse>> getRegisteredUserApplications() {
+    UUID userId = securityUtils.getAuthenticatedUserId();
     List<ApplicationRegistrationResponse> applications = applicationService.getRegisteredApplicationsOfUser(userId);
     return ResponseEntity.ok(applications);
   }
@@ -36,7 +40,7 @@ public class ApplicationController {
         .map(app -> ApplicationRegistrationResponse.builder()
             .name(app.getName())
             .baseUrl(app.getBaseUrl())
-            .userId(app.getUserId())
+            .id(app.getId())
             .email(app.getEmail())
             .build())
         .toList();

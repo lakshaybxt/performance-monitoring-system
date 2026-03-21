@@ -14,8 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class ApplicationRegistrationResponse {
+  private UUID id;
   private String name;
   private String baseUrl;
-  private UUID userId;
   private String email;
 }

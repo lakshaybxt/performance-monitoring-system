@@ -22,7 +22,6 @@ public class MetricsController {
 
   private final MetricsCollectorService metricsService;
 
-
   @GetMapping("/{applicationId}")
   public Page<MetricsResponse> getMetrics(
       @PathVariable UUID applicationId,

@@ -32,8 +32,11 @@ public class Application {
   @Column(nullable = false)
   private String email;
 
-  @OneToMany(mappedBy = "application")
+  @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Metrics> metrics;
+
+  @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Alert> alerts;
 
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

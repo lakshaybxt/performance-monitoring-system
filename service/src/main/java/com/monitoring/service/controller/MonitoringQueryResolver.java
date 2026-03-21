@@ -2,10 +2,9 @@ package com.monitoring.service.controller;
 
 import com.monitoring.service.domain.Alert;
 import com.monitoring.service.domain.Metrics;
-import com.monitoring.service.dto.AlertResponse;
 import com.monitoring.service.service.AlertService;
 import com.monitoring.service.service.MetricsCollectorService;
-import org.springframework.security.oauth2.jwt.Jwt;
+import com.monitoring.service.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +23,7 @@ public class MonitoringQueryResolver {
 
   private final MetricsCollectorService metricService;
   private final AlertService alertService;
+  private final SecurityUtils securityUtils;
 
   @QueryMapping
   public List<Metrics> metrics(
@@ -32,9 +32,7 @@ public class MonitoringQueryResolver {
       Authentication authentication
   ) {
 
-    Jwt jwt = (Jwt) authentication.getPrincipal();
-
-    String userId = jwt.getClaim("userId");
+    UUID userId = securityUtils.getAuthenticatedUserId();
     LocalDateTime time = LocalDateTime.now().minusMinutes(minutes);
 
     return metricService.getRecentMetrics(applicationId, time, userId);

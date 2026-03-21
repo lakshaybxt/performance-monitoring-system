@@ -3,7 +3,9 @@ package com.monitoring.service.service;
 import com.monitoring.service.domain.Application;
 import com.monitoring.service.dto.ApplicationRegistrationRequest;
 import com.monitoring.service.dto.ApplicationRegistrationResponse;
+import com.monitoring.service.repos.AlertRepository;
 import com.monitoring.service.repos.ApplicationRepository;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,17 @@ import java.util.UUID;
 public class ApplicationService {
 
   private final ApplicationRepository applicationRepository;
+  private final AlertRepository alertRepository;
 
-  public void registerApplication(ApplicationRegistrationRequest request) {
+  @Transactional
+  public void registerApplication(ApplicationRegistrationRequest request, UUID userId) {
     log.info("Registering application: {}", request.getName());
 
     Application app = Application.builder()
         .name(request.getName())
         .baseUrl(request.getBaseUrl())
         .email(request.getEmail())
-        .userId(request.getUserId())
+        .userId(userId)
         .build();
 
     applicationRepository.save(app);
@@ -47,7 +51,7 @@ public class ApplicationService {
         .map(app -> ApplicationRegistrationResponse.builder()
             .name(app.getName())
             .baseUrl(app.getBaseUrl())
-            .userId(app.getUserId())
+            .id(app.getId())
             .email(app.getEmail())
             .build())
         .toList();
@@ -62,6 +66,7 @@ public class ApplicationService {
     return applicationRepository.findAll();
   }
 
+  @Transactional
   public void deleteApplication(UUID applicationId) {
     log.info("Deleting application with ID: {}", applicationId);
     applicationRepository.deleteById(applicationId);

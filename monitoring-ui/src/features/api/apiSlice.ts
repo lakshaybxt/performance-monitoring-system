@@ -48,9 +48,9 @@ type ApplicationRegisterRequest = {
 }
 
 type ApplicationRegistrationResponse = {
+  id: string;
   name: string;
   baseUrl: string;
-  userId: string;
   email: string;
 }
 

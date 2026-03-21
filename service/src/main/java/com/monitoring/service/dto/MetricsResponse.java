@@ -14,6 +14,5 @@ public record MetricsResponse(
      Double memoryUsage,
      Double responseTime,
      Integer threadCount,
-
      LocalDateTime createdAt
 ) {}
