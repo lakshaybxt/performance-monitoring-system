@@ -597,64 +597,55 @@ Client → API Gateway → [Service Discovery lookup via Eureka]
 
 ## Future Improvements
 
-### 1. Message Queue Integration
-**Currently:** Direct HTTP calls for alerting
-**Future:** Implement Kafka/RabbitMQ for:
-- Decoupling alert processing from metrics collection
-- Buffering high volumes of metrics
-- Enabling event replay and audit trails
-
-### 2. Advanced Monitoring & Observability
+### 1. Advanced Monitoring & Observability
 - **Distributed Tracing:** Implement Jaeger/Zipkin for request tracing
 - **Centralized Logging:** ELK Stack (Elasticsearch, Logstash, Kibana)
 - **Log Aggregation:** Centralize logs from all services
 - **APM:** Application Performance Monitoring (New Relic, DataDog)
 
-### 3. Caching Layer
+### 2. Caching Layer
 **Add Redis for:**
 - Frequently accessed metrics
 - User session caching
 - Rate limiting state
 - Query result caching
 
-### 4. Database Optimization
+### 3. Database Optimization
 - **Time-Series Optimization:** TimescaleDB for metrics storage
 - **Data Retention Policies:** Implement data archival and cleanup
 - **Query Performance:** Add materialized views for common queries
 - **Replication:** Master-slave setup for high availability
 
-### 5. Enhanced Security
+### 4. Enhanced Security
 - **API Security:** OAuth 2.0 / OpenID Connect
 - **Encryption:** TLS for all service-to-service communication
 - **Secret Management:** HashiCorp Vault or AWS Secrets Manager
 - **RBAC Enhancement:** Fine-grained permission model
 
-### 6. Container Orchestration
+### 5. Container Orchestration
 **Migration Path:**
 - Kubernetes adoption for production
 - Helm charts for service deployment
 - Auto-scaling policies
 - Automated rollout/rollback
 
-### 7. Testing & CI/CD
+### 6. Testing & CI/CD
 - **Integration Tests:** Full workflow testing
 - **E2E Tests:** Complete user flows
 - **Performance Tests:** Load and stress testing
 - **CI/CD Pipeline:** GitLab CI / GitHub Actions
 - **Automated Deployments:** Blue-green or canary deployments
 
-### 8. Resilience Patterns
-- **Circuit Breakers:** Prevent cascading failures
-- **Rate Limiting:** Per-service and per-client limits
+### 7. Resilience Patterns
 - **Retry Logic:** Exponential backoff for transient failures
 - **Bulkheads:** Resource isolation between services
 
-### 9. Multi-tenancy
+### 8. Multi-tenancy
 - Support for multiple organization deployments
 - Data isolation and segregation
 - Tenant-aware authentication/authorization
 
-### 10. Mobile Application
+### 9. Mobile Application
 - Native mobile app for alert notifications
 - Cross-platform support (iOS/Android)
 - Push notification integration
