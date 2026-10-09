@@ -19,7 +19,7 @@ const Register = () => {
   const [step, setStep] = useState<"register" | "verify">("register");
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
 
-  const [register, { isLoading, error }] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
   const [verifyUser, { isLoading: isVerifying }] = useVerifyUserMutation();
 
   const handleRegister = async () => {
@@ -35,7 +35,7 @@ const Register = () => {
       setStep("verify");
     } catch (err) {
       console.error("Register Error:", err);
-      toast.error(err?.data?.message ||"Registration failed");
+      toast.error("Registration failed");
     }
   };
 
@@ -49,8 +49,8 @@ const Register = () => {
       await verifyUser({ email, verificationCode }).unwrap();
       toast.success("Email verified! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1500);
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Invalid code. Please try again.");
+    } catch (err) {
+      toast.error("Invalid code. Please try again.");
     }
   };
 

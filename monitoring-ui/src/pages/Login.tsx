@@ -30,7 +30,7 @@ const Login = () => {
       toast.success("Logged in successfully!");
     } catch (err) {
       console.error("Login Error:", err);
-      toast.error(err?.data?.message || "Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     }
   };
 
